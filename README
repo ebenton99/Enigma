@@ -1,0 +1,48 @@
+CS475 HOMEWORK 3 README
+
+The following are the plugboard and reflector keys I used during testing and development.
+
+plugboard: VH1XK0OBULQRF3J2CPWMD47NYG5TI8EA6Z9S
+
+reflector: RE0KAWGLYSTF9ZOH36CI1PB4UD5MN28QJV7X
+
+enigma.cpp - 
+
+To compile the program, use the makefile I created by entering "make build". Then execute the compiled program.
+
+Global Variables:
+vector<char> alphabet - A list of characters in the order A-Z, 0-9
+vector<char> rightWheelStart - Starting position of the characters in the right wheel of the Enigma machine
+vector<char> middleWheelStart - Same as right wheel but for middle wheel characters
+vector<char> leftWheelStart - Same as right wheel but for left wheel characters
+
+vector<char> rotateWheel(vector<char> wheel):
+Rotates the characters in wheel by taking the character at the end and moving it to the start of list.
+Returns
+
+string encrypt(string msg, vector<char> plugboard, vector<char> reflector):
+Encrypts msg based on how an Enigma machine works. It does this by finding the position of each character in
+alphabet and then getting the character in the same position in plugboard. It repeats this process through the
+right, middle, and left wheels, and then the reflector. Once it passes through the reflector, the character comes
+back through the wheels and plugboard, but it instead searches for the position of the character in the left, middle, 
+right wheel, or plugboard depending on which part it is currently in and then finds the character in that position
+in the alphabet. Once it passes through the plugboard, the encrypted character is added to the encrypted message and
+once all characters have been encrypted the message is returned.
+
+string decrypt(string msg, vector<char> plugboard, vector<char> reflector):
+decrypt works the same as encrypt, except for the reflector. When decrypting, the reflector part first checks for the
+position of the current character in the reflector key, then retrieves the character in the same position in alphabet
+unlike encrypt which does this the other way around. This function returns the original message in msg.
+
+int main:
+When the program starts, you will first be asked to give the keys for the plugboard and reflector. They must be
+36 characters long, otherwise the program will exit. Once you do that, you will be asked to choose which of the
+following 3 options you want to choose:
+
+1. Encrypt Message - Lets you enter a message that it will encrypt and give back to you. Message can only contain
+characters A-Z, 0-9. Entering any other characters will display a message and send you back to the options menu.
+
+2. Decrypt Message - Similar to the first option, except you enter an encrypted message and the program will give
+you the original message back.
+
+3. Exit - Exits the program.
